@@ -1,0 +1,7 @@
+
+%h = hash reduzida, 
+%d = mostra branch e tag, 
+%s = mensagem
+%cn = exibe o autor
+%cr = data relativa
+%C() = adiciona cor a letra
