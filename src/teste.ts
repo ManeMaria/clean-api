@@ -3,4 +3,4 @@ function cesar (a: number): number {
   return a
 }
 
-// cesar(1)
+cesar(1);
