@@ -1,3 +1,6 @@
-function cesar (){
-    return {a:1}
+
+function cesar (a: number): number {
+  return a
 }
+
+// cesar(1)
