@@ -1,0 +1,6 @@
+npm-check - apenas verifica as libs desatualizadas ou não utilizadas
+
+npm-check -s -u
+
+-s = skip - manda pular as libs não utilizadas
+-u = update - update iterativo
