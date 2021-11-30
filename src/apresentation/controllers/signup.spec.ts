@@ -14,6 +14,9 @@ describe('SignUp Controller', () => {
       }
     }
     const htttpResponse = sut.handle(httpRequest)
+    // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
+    // tobe compara os valores dos objetos em si
+    expect(htttpResponse.body).toEqual(new Error('Parâmetros não fornecidos'))
   })
 })
