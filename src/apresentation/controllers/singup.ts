@@ -3,9 +3,12 @@
 // do arquivo de teste
 export class SignUpController {
   handle (httpRequest: any): any {
-    return {
-      statusCode: 400,
-      body: new Error('Parâmetros não fornecidos')
+    const { body: { name, email } } = httpRequest
+    if (!name || !email) {
+      return {
+        statusCode: 400,
+        body: new Error('Parâmetros não fornecidos')
+      }
     }
   }
 }
