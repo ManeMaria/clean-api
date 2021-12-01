@@ -1,4 +1,5 @@
 import { SignUpController } from './singup'
+import { MissingParamsError } from '../erros/missing-parrams-erros'
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
 describe('SignUp Controller', () => {
@@ -17,7 +18,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new Error('Parâmetros não fornecidos'))
+    expect(htttpResponse.body).toEqual(new MissingParamsError('Parâmetros não fornecidos'))
   })
 })
 
@@ -38,6 +39,6 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new Error('Parâmetros não fornecidos'))
+    expect(htttpResponse.body).toEqual(new MissingParamsError('Parâmetros não fornecidos'))
   })
 })
