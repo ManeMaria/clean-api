@@ -7,7 +7,7 @@ import * as i from '../protocols/http'
 export class SignUpController {
   handle (httpRequest: i.HttpRequest): i.HttpResponse {
     const { body } = httpRequest
-    const requesFields = ['email', 'name']
+    const requesFields = ['email', 'name', 'password']
 
     for (const field of requesFields) {
       if (!body[field]) {
