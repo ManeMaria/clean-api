@@ -1,3 +1,4 @@
+import { MissingParamsError } from '../erros/missing-parrams-erros'
 import { badRequest } from '../helpers/http-helpers'
 import * as i from '../protocols/http'
 
@@ -5,9 +6,13 @@ import * as i from '../protocols/http'
 // do arquivo de teste
 export class SignUpController {
   handle (httpRequest: i.HttpRequest): i.HttpResponse {
-    const { body: { name, email } } = httpRequest
-    if (!name || !email) {
-      return badRequest('Parâmetros não fornecidos')
+    const { body } = httpRequest
+    const requesFields = ['email', 'name']
+
+    for (const field of requesFields) {
+      if (!body[field]) {
+        return badRequest(new MissingParamsError(field))
+      }
     }
   }
 }
