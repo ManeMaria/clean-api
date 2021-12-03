@@ -6,7 +6,7 @@ import * as i from '../protocols/http'
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
 export class SignUpController implements Controller {
-  handle (httpRequest) {
+  handle (httpRequest: i.HttpRequest): i.HttpResponse {
     const { body } = httpRequest
     const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
 
