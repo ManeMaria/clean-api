@@ -1,11 +1,12 @@
 import { SignUpController } from './singup'
 import { MissingParamsError } from '../erros/missing-parrams-erros'
 
+const makeSut = (): SignUpController => new SignUpController()
 describe('SignUp Controller', () => {
   test('se não enviar um email, será retornado erro 400', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
-    const sut = new SignUpController()
+    const sut = makeSut()
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -27,7 +28,7 @@ describe('SignUp Controller', () => {
   test('se não enviar um nome, será retornado erro 400', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
-    const sut = new SignUpController()
+    const sut = makeSut()
     const httpRequest = {
       body: {
         email: 'any@email@email.com',
@@ -49,7 +50,7 @@ describe('SignUp Controller', () => {
   test('se não enviar um password, será retornado erro 400', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
-    const sut = new SignUpController()
+    const sut = makeSut()
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -71,7 +72,7 @@ describe('SignUp Controller', () => {
   test('se não enviar um passwordConfirmation, será retornado erro 400', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
-    const sut = new SignUpController()
+    const sut = makeSut()
     const httpRequest = {
       body: {
         name: 'any_name',
