@@ -1,15 +1,14 @@
 
 import { badRequest, serverError } from '../helpers/http-helpers'
-import { EmailValidator } from '../protocols/email-validator'
-import { Controller } from '../protocols/controller'
+import * as p from '../protocols/index'
 import * as i from '../protocols/http'
 import * as e from '../erros/erros'
 
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
-export class SignUpController implements Controller {
-  private readonly emailValidator: EmailValidator
-  constructor (emailValidator: EmailValidator) {
+export class SignUpController implements p.Controller {
+  private readonly emailValidator: p.EmailValidator
+  constructor (emailValidator: p.EmailValidator) {
     this.emailValidator = emailValidator
   }
 
