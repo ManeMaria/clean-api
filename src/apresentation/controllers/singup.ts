@@ -1,9 +1,9 @@
-import { MissingParamsError } from '../erros/missing-params-erros'
+
 import { badRequest, serverError } from '../helpers/http-helpers'
+import { EmailValidator } from '../protocols/email-validator'
 import { Controller } from '../protocols/controller'
 import * as i from '../protocols/http'
-import { EmailValidator } from '../protocols/email-validator'
-import { InvalidParamError } from '../erros/invalid-params-error'
+import * as e from '../erros/erros'
 
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
@@ -20,14 +20,14 @@ export class SignUpController implements Controller {
 
       for (const field of requesFields) {
         if (!body[field]) {
-          return badRequest(new MissingParamsError(field))
+          return badRequest(new e.MissingParamsError(field))
         }
       }
 
       const isValid = this.emailValidator.isValid(body.email)
 
       if (!isValid) {
-        return badRequest(new InvalidParamError('email'))
+        return badRequest(new e.InvalidParamError('email'))
       }
     } catch (error) {
       console.error(error)
