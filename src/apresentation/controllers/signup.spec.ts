@@ -1,7 +1,8 @@
 import { SignUpController } from './singup'
-import { MissingParamsError } from '../erros/missing-parrams-erros'
-import { InvalidParamError } from '../erros/invalid-parrams-error'
+import { MissingParamsError } from '../erros/missing-params-erros'
+import { InvalidParamError } from '../erros/invalid-params-error'
 import { EmailValidator } from '../protocols/email-validator'
+import { ServerError } from '../erros/server-erros'
 
 interface SutTypes {
   sut: SignUpController
@@ -134,5 +135,29 @@ describe('SignUp Controller', () => {
 
     // toHaveBeenLastCalledWith verifica o valor passado ao isValid
     expect(isValid).toHaveBeenLastCalledWith('any_email@email.com')
+  })
+
+  test('erro do servidor', () => {
+    class EmailValidatorStub implements EmailValidator {
+      isValid (email: string): boolean {
+        throw new Error()
+      }
+    }
+
+    const emailValidator = new EmailValidatorStub()
+    const sut = new SignUpController(emailValidator)
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'invali_email@email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+    const htttpResponse = sut.handle(httpRequest)
+    // tobe compara os objetos em si
+    expect(htttpResponse.statusCode).toBe(500)
+    // tobe compara os valores dos objetos em si
+    expect(htttpResponse.body).toEqual(new ServerError())
   })
 })
