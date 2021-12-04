@@ -1,16 +1,16 @@
 import { SignUpController } from './singup'
 import * as e from '../erros/erros'
-import { EmailValidator } from '../protocols/email-validator'
+import * as p from '../protocols/index'
 
 interface SutTypes {
   sut: SignUpController
-  emailValidator: EmailValidator
+  emailValidator: p.EmailValidator
 }
 const makeSut = (): SutTypes => {
   // test buble, um tipo de moke, um função que retorna um valor certo
   // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
   // na resposta do validador
-  class EmailValidatorStub implements EmailValidator {
+  class EmailValidatorStub implements p.EmailValidator {
     isValid (email: string): boolean {
       return true
     }
@@ -136,7 +136,7 @@ describe('SignUp Controller', () => {
   })
 
   test('erro do servidor', () => {
-    class EmailValidatorStub implements EmailValidator {
+    class EmailValidatorStub implements p.EmailValidator {
       isValid (email: string): boolean {
         throw new Error()
       }
