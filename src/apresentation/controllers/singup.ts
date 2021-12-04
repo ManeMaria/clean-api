@@ -1,5 +1,5 @@
 import { MissingParamsError } from '../erros/missing-params-erros'
-import { badRequest, internalError } from '../helpers/http-helpers'
+import { badRequest, serverError } from '../helpers/http-helpers'
 import { Controller } from '../protocols/controller'
 import * as i from '../protocols/http'
 import { EmailValidator } from '../protocols/email-validator'
@@ -30,7 +30,7 @@ export class SignUpController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
     } catch (error) {
-      return internalError()
+      return serverError()
     }
   }
 }
