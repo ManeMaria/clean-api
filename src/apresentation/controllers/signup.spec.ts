@@ -6,17 +6,28 @@ interface SutTypes {
   sut: SignUpController
   emailValidator: p.EmailValidator
 }
-const makeSut = (): SutTypes => {
-  // test buble, um tipo de moke, um função que retorna um valor certo
-  // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
-  // na resposta do validador
+const makeEmailValidator = (): p.EmailValidator => {
   class EmailValidatorStub implements p.EmailValidator {
     isValid (email: string): boolean {
       return true
     }
   }
+  return new EmailValidatorStub()
+}
 
-  const emailValidator = new EmailValidatorStub()
+const makeEmailValidatorWithError = (): p.EmailValidator => {
+  class EmailValidatorStub implements p.EmailValidator {
+    isValid (email: string): boolean {
+      throw new Error()
+    }
+  }
+  return new EmailValidatorStub()
+}
+const makeSut = (): SutTypes => {
+  // test buble, um tipo de moke, um função que retorna um valor certo
+  // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
+  // na resposta do validador
+  const emailValidator = makeEmailValidator()
   return {
     sut: new SignUpController(emailValidator),
     emailValidator
@@ -136,13 +147,7 @@ describe('SignUp Controller', () => {
   })
 
   test('erro do servidor', () => {
-    class EmailValidatorStub implements p.EmailValidator {
-      isValid (email: string): boolean {
-        throw new Error()
-      }
-    }
-
-    const emailValidator = new EmailValidatorStub()
+    const emailValidator = makeEmailValidatorWithError()
     const sut = new SignUpController(emailValidator)
     const httpRequest = {
       body: {
