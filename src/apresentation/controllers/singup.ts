@@ -1,10 +1,9 @@
-import { MissingParamsError } from '../erros/missing-params-erros'
-import { badRequest, internalError } from '../helpers/http-helpers'
+import { MissingParamsError } from '../erros/missing-parrams-erros'
+import { badRequest } from '../helpers/http-helpers'
 import { Controller } from '../protocols/controller'
 import * as i from '../protocols/http'
 import { EmailValidator } from '../protocols/email-validator'
-import { InvalidParamError } from '../erros/invalid-params-error'
-import { ServerError } from '../erros/server-erros'
+import { InvalidParamError } from '../erros/invalid-parrams-error'
 
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
@@ -15,23 +14,19 @@ export class SignUpController implements Controller {
   }
 
   handle (httpRequest: i.HttpRequest): i.HttpResponse {
-    try {
-      const { body } = httpRequest
-      const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
+    const { body } = httpRequest
+    const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
 
-      for (const field of requesFields) {
-        if (!body[field]) {
-          return badRequest(new MissingParamsError(field))
-        }
+    for (const field of requesFields) {
+      if (!body[field]) {
+        return badRequest(new MissingParamsError(field))
       }
+    }
 
-      const isValid = this.emailValidator.isValid(body.email)
+    const isValid = this.emailValidator.isValid(body.email)
 
-      if (!isValid) {
-        return badRequest(new InvalidParamError('email'))
-      }
-    } catch (error) {
-      return internalError(new ServerError())
+    if (!isValid) {
+      return badRequest(new InvalidParamError('email'))
     }
   }
 }
