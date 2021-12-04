@@ -1,8 +1,6 @@
 import { SignUpController } from './singup'
-import { MissingParamsError } from '../erros/missing-params-erros'
-import { InvalidParamError } from '../erros/invalid-params-error'
+import * as e from '../erros/erros'
 import { EmailValidator } from '../protocols/email-validator'
-import { ServerError } from '../erros/server-erros'
 
 interface SutTypes {
   sut: SignUpController
@@ -41,7 +39,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new MissingParamsError('email'))
+    expect(htttpResponse.body).toEqual(new e.MissingParamsError('email'))
   })
 
   test('se não enviar um nome, será retornado erro 400', () => {
@@ -59,7 +57,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new MissingParamsError('name'))
+    expect(htttpResponse.body).toEqual(new e.MissingParamsError('name'))
   })
 
   test('se não enviar um passwordConfirmation, será retornado erro 400', () => {
@@ -77,7 +75,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new MissingParamsError('passwordConfirmation'))
+    expect(htttpResponse.body).toEqual(new e.MissingParamsError('passwordConfirmation'))
   })
 
   test('se não enviar um password, será retornado erro 400', () => {
@@ -95,7 +93,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new MissingParamsError('password'))
+    expect(htttpResponse.body).toEqual(new e.MissingParamsError('password'))
   })
 
   test('validadndo email', () => {
@@ -116,7 +114,7 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new InvalidParamError('email'))
+    expect(htttpResponse.body).toEqual(new e.InvalidParamError('email'))
   })
 
   test('garantindo que o EmailValidator chame o email correto', () => {
@@ -158,6 +156,6 @@ describe('SignUp Controller', () => {
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new ServerError())
+    expect(htttpResponse.body).toEqual(new e.ServerError())
   })
 })
