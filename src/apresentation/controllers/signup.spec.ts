@@ -117,4 +117,22 @@ describe('SignUp Controller', () => {
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new InvalidParamError('email'))
   })
+
+  test('garantindo que o EmailValidator chame o email correto', () => {
+    const { sut, emailValidator } = makeSut()
+    // solicita ao jest observar o método isValid
+    const isValid = jest.spyOn(emailValidator, 'isValid')
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+    sut.handle(httpRequest)
+
+    // toHaveBeenLastCalledWith verifica o valor passado ao isValid
+    expect(isValid).toHaveBeenLastCalledWith('any_email@email.com')
+  })
 })
