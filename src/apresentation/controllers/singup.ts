@@ -29,7 +29,7 @@ export class SignUpController implements p.Controller {
         return badRequest(new e.InvalidParamError('email'))
       }
     } catch (error) {
-      console.error(error)
+      console.log('%c entrou error')
       return serverError()
     }
   }
