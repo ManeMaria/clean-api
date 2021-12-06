@@ -15,14 +15,6 @@ const makeEmailValidator = (): p.EmailValidator => {
   return new EmailValidatorStub()
 }
 
-const makeEmailValidatorWithError = (): p.EmailValidator => {
-  class EmailValidatorStub implements p.EmailValidator {
-    isValid (email: string): boolean {
-      throw new Error()
-    }
-  }
-  return new EmailValidatorStub()
-}
 const makeSut = (): SutTypes => {
   // test buble, um tipo de moke, um função que retorna um valor certo
   // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
@@ -146,17 +138,20 @@ describe('SignUp Controller', () => {
     expect(isValid).toHaveBeenLastCalledWith('any_email@email.com')
   })
 
-  test('erro do servidor', () => {
-    const emailValidator = makeEmailValidatorWithError()
-    const sut = new SignUpController(emailValidator)
+  test('garantindo que o EmailValidator chame o email correto. Novo método', () => {
+    const { sut, emailValidator } = makeSut()
+
+    // serve para simular um valor de retorno diferente do stub
+    jest.spyOn(emailValidator, 'isValid').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'invali_email@email@email.com',
+        email: 'any_email@email.com',
         password: 'any-pss',
         passwordConfirmation: 'any-pss'
       }
     }
+
     const htttpResponse = sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
