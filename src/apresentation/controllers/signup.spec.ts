@@ -99,6 +99,25 @@ describe('SignUp Controller', () => {
     expect(htttpResponse.body).toEqual(new e.MissingParamsError('password'))
   })
 
+  test('retorna um erro 400, se o password e o passWordConfirmation não correponderem', () => {
+    // coloca a classe de sut (sistem unde test) como prefixo para
+    // indicar qual classe estamos testando
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'invalid-pss'
+      }
+    }
+    const htttpResponse = sut.handle(httpRequest)
+    // tobe compara os objetos em si
+    expect(htttpResponse.statusCode).toBe(400)
+    // tobe compara os valores dos objetos em si
+    expect(htttpResponse.body).toEqual(new e.InvalidParamError('passwordConfirmation'))
+  })
   test('validadndo email', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
