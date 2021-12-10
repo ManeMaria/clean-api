@@ -1,11 +1,25 @@
 import { SignUpController } from './singup'
 import * as e from '../erros/erros'
 import * as p from '../protocols/index'
+import { AddAccountModel, AddAccount } from '../../domain/usecase/add-account'
+import { AccountModel } from '../../domain/models/account'
 
-interface SutTypes {
-  sut: SignUpController
-  emailValidator: p.EmailValidator
+const makeAddAccount = (): AddAccount => {
+  class AddAccountStub implements AddAccount {
+    add (account: AddAccountModel): AccountModel {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email@email.com',
+        password: 'valid-pss'
+      }
+
+      return fakeAccount
+    }
+  }
+  return new AddAccountStub()
 }
+
 const makeEmailValidator = (): p.EmailValidator => {
   class EmailValidatorStub implements p.EmailValidator {
     isValid (email: string): boolean {
@@ -14,15 +28,22 @@ const makeEmailValidator = (): p.EmailValidator => {
   }
   return new EmailValidatorStub()
 }
+interface SutTypes {
+  sut: SignUpController
+  emailValidator: p.EmailValidator
+  addAccountStub: AddAccount
+}
 
 const makeSut = (): SutTypes => {
   // test buble, um tipo de moke, um função que retorna um valor certo
   // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
   // na resposta do validador
+  const addAccountStub = makeAddAccount()
   const emailValidator = makeEmailValidator()
   return {
-    sut: new SignUpController(emailValidator),
-    emailValidator
+    sut: new SignUpController(emailValidator, addAccountStub),
+    emailValidator,
+    addAccountStub
   }
 }
 
@@ -155,6 +176,28 @@ describe('SignUp Controller', () => {
 
     // toHaveBeenLastCalledWith verifica o valor passado ao isValid
     expect(isValid).toHaveBeenLastCalledWith('any_email@email.com')
+  })
+
+  test('garantindo o valores adicionados estejam corretos', () => {
+    const { sut, addAccountStub } = makeSut()
+    // solicita ao jest observar o método isValid
+    const addSpy = jest.spyOn(addAccountStub, 'add')
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+    sut.handle(httpRequest)
+
+    // toHaveBeenLastCalledWith verifica o valor passado ao isValid
+    expect(addSpy).toHaveBeenLastCalledWith({
+      name: 'any_name',
+      email: 'any_email@email.com',
+      password: 'any-pss'
+    })
   })
 
   test('garantindo que o EmailValidator chame o email correto. Novo método', () => {
