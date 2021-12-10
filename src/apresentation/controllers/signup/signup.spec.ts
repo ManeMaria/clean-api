@@ -1,12 +1,10 @@
 import { SignUpController } from './singup'
-import * as e from '../erros/erros'
-import * as p from '../protocols/index'
-import { AddAccountModel, AddAccount } from '../../domain/usecase/add-account'
-import { AccountModel } from '../../domain/models/account'
+import * as e from '../../erros/erros'
+import * as p from '../signup/signup-protocols'
 
-const makeAddAccount = (): AddAccount => {
-  class AddAccountStub implements AddAccount {
-    add (account: AddAccountModel): AccountModel {
+const makeAddAccount = (): p.AddAccount => {
+  class AddAccountStub implements p.AddAccount {
+    add (account: p.AddAccountModel): p.AccountModel {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
@@ -31,7 +29,7 @@ const makeEmailValidator = (): p.EmailValidator => {
 interface SutTypes {
   sut: SignUpController
   emailValidator: p.EmailValidator
-  addAccountStub: AddAccount
+  addAccountStub: p.AddAccount
 }
 
 const makeSut = (): SutTypes => {
