@@ -198,11 +198,32 @@ describe('SignUp Controller', () => {
     })
   })
 
-  test('garantindo que o EmailValidator chame o email correto. Novo método', () => {
+  test('Excessão vinda do servidor', () => {
     const { sut, emailValidator } = makeSut()
 
     // serve para simular um valor de retorno diferente do stub
     jest.spyOn(emailValidator, 'isValid').mockImplementationOnce(() => { throw new Error() })
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+
+    const htttpResponse = sut.handle(httpRequest)
+    // tobe compara os objetos em si
+    expect(htttpResponse.statusCode).toBe(500)
+    // tobe compara os valores dos objetos em si
+    expect(htttpResponse.body).toEqual(new e.ServerError())
+  })
+
+  test('Excessão vinda do servidor addAccount', () => {
+    const { sut, addAccountStub } = makeSut()
+
+    // serve para simular um valor de retorno diferente do stub
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
       body: {
         name: 'any_name',
