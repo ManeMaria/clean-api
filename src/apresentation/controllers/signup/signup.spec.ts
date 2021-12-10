@@ -137,6 +137,7 @@ describe('SignUp Controller', () => {
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.InvalidParamError('passwordConfirmation'))
   })
+
   test('validadndo email', () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
@@ -238,5 +239,29 @@ describe('SignUp Controller', () => {
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.ServerError())
+  })
+
+  test('Sucesso ao passar dados válidos', () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+
+    const htttpResponse = sut.handle(httpRequest)
+    // tobe compara os objetos em si
+    expect(htttpResponse.statusCode).toBe(200)
+    // tobe compara os valores dos objetos em si
+    expect(htttpResponse.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@email.com',
+      password: 'valid-pss'
+    })
   })
 })
