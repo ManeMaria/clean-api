@@ -1,5 +1,5 @@
 
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, serverError, sucess } from '../../helpers/http-helpers'
 import * as p from '../signup/signup-protocols'
 import * as e from '../../erros/erros'
 
@@ -37,11 +37,13 @@ export class SignUpController implements p.Controller {
         return badRequest(new e.InvalidParamError('email'))
       }
 
-      this.addAccout.add({
+      const account = this.addAccout.add({
         name,
         email,
         password
       })
+
+      return sucess(account)
     } catch (error) {
       console.log('%c entrou error')
       return serverError()

@@ -7,9 +7,17 @@ export const badRequest = (error: Error): HttpResponse => {
     body: error
   }
 }
+
 export const serverError = (): HttpResponse => {
   return {
     statusCode: 500,
     body: new ServerError()
+  }
+}
+
+export const sucess = (value: any): HttpResponse => {
+  return {
+    statusCode: 200,
+    body: value
   }
 }
