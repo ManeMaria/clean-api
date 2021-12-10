@@ -1,22 +1,20 @@
 
-import { badRequest, serverError } from '../helpers/http-helpers'
-import * as p from '../protocols/index'
-import * as i from '../protocols/http'
-import * as e from '../erros/erros'
-import { AddAccount } from '../../domain/usecase/add-account'
+import { badRequest, serverError } from '../../helpers/http-helpers'
+import * as p from '../signup/signup-protocols'
+import * as e from '../../erros/erros'
 
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
 export class SignUpController implements p.Controller {
   private readonly emailValidator: p.EmailValidator
-  private readonly addAccout: AddAccount
+  private readonly addAccout: p.AddAccount
 
-  constructor (emailValidator: p.EmailValidator, addAccout: AddAccount) {
+  constructor (emailValidator: p.EmailValidator, addAccout: p.AddAccount) {
     this.emailValidator = emailValidator
     this.addAccout = addAccout
   }
 
-  handle (httpRequest: i.HttpRequest): i.HttpResponse {
+  handle (httpRequest: p.HttpRequest): p.HttpResponse {
     try {
       const { body } = httpRequest
       const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
