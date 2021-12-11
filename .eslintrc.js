@@ -5,8 +5,9 @@ module.exports = {
     project: "./tsconfig.json"
   },
   rules: {
-    "@typescript-eslint/strict-boolean-expressions": 0
-
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "no-return-await": "off",
+    "@typescript-eslint/return-await": "off"
   }
 
 }
