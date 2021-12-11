@@ -225,7 +225,7 @@ describe('SignUp Controller', () => {
 
     // serve para simular um valor de retorno diferente do stub
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      return new Promise((res, rej) => rej(new Error()))
+      return new Promise((resolve, reject) => reject(new Error()))
     })
     const httpRequest = {
       body: {
