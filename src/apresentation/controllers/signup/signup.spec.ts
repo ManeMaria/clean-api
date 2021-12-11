@@ -4,7 +4,7 @@ import * as p from '../signup/signup-protocols'
 
 const makeAddAccount = (): p.AddAccount => {
   class AddAccountStub implements p.AddAccount {
-    add (account: p.AddAccountModel): p.AccountModel {
+    async add (account: p.AddAccountModel): Promise<p.AccountModel> {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
@@ -12,7 +12,7 @@ const makeAddAccount = (): p.AddAccount => {
         password: 'valid-pss'
       }
 
-      return fakeAccount
+      return new Promise(resolve => resolve(fakeAccount))
     }
   }
   return new AddAccountStub()
@@ -46,10 +46,10 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
-  test('se não enviar um email, será retornado erro 400', () => {
+  test('se não enviar um email, será retornado erro 400', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
-    const { sut } = makeSut()
+    const { sut } = await makeSut()
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -57,14 +57,14 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.MissingParamsError('email'))
   })
 
-  test('se não enviar um nome, será retornado erro 400', () => {
+  test('se não enviar um nome, será retornado erro 400', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
     const { sut } = makeSut()
@@ -75,14 +75,14 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.MissingParamsError('name'))
   })
 
-  test('se não enviar um passwordConfirmation, será retornado erro 400', () => {
+  test('se não enviar um passwordConfirmation, será retornado erro 400', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
     const { sut } = makeSut()
@@ -93,14 +93,14 @@ describe('SignUp Controller', () => {
         password: 'any-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.MissingParamsError('passwordConfirmation'))
   })
 
-  test('se não enviar um password, será retornado erro 400', () => {
+  test('se não enviar um password, será retornado erro 400', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
     const { sut } = makeSut()
@@ -111,14 +111,14 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.MissingParamsError('password'))
   })
 
-  test('retorna um erro 400, se o password e o passWordConfirmation não correponderem', () => {
+  test('retorna um erro 400, se o password e o passWordConfirmation não correponderem', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
     const { sut } = makeSut()
@@ -131,14 +131,14 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'invalid-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.InvalidParamError('passwordConfirmation'))
   })
 
-  test('validadndo email', () => {
+  test('validadndo email', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para
     // indicar qual classe estamos testando
     const { sut, emailValidator } = makeSut()
@@ -152,14 +152,14 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(400)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.InvalidParamError('email'))
   })
 
-  test('garantindo que o EmailValidator chame o email correto', () => {
+  test('garantindo que o EmailValidator chame o email correto', async () => {
     const { sut, emailValidator } = makeSut()
     // solicita ao jest observar o método isValid
     const isValid = jest.spyOn(emailValidator, 'isValid')
@@ -171,13 +171,13 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    sut.handle(httpRequest)
+    await sut.handle(httpRequest)
 
     // toHaveBeenLastCalledWith verifica o valor passado ao isValid
     expect(isValid).toHaveBeenLastCalledWith('any_email@email.com')
   })
 
-  test('garantindo o valores adicionados estejam corretos', () => {
+  test('garantindo o valores adicionados estejam corretos', async () => {
     const { sut, addAccountStub } = makeSut()
     // solicita ao jest observar o método isValid
     const addSpy = jest.spyOn(addAccountStub, 'add')
@@ -189,7 +189,7 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-    sut.handle(httpRequest)
+    await sut.handle(httpRequest)
 
     // toHaveBeenLastCalledWith verifica o valor passado ao isValid
     expect(addSpy).toHaveBeenLastCalledWith({
@@ -199,7 +199,7 @@ describe('SignUp Controller', () => {
     })
   })
 
-  test('Excessão vinda do servidor', () => {
+  test('Excessão vinda do servidor', async () => {
     const { sut, emailValidator } = makeSut()
 
     // serve para simular um valor de retorno diferente do stub
@@ -213,18 +213,20 @@ describe('SignUp Controller', () => {
       }
     }
 
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.ServerError())
   })
 
-  test('Excessão vinda do servidor addAccount', () => {
+  test('Excessão vinda do servidor addAccount', async () => {
     const { sut, addAccountStub } = makeSut()
 
     // serve para simular um valor de retorno diferente do stub
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new Error() })
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+      return new Promise((res, rej) => rej(new Error()))
+    })
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -234,14 +236,14 @@ describe('SignUp Controller', () => {
       }
     }
 
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual(new e.ServerError())
   })
 
-  test('Sucesso ao passar dados válidos', () => {
+  test('Sucesso ao passar dados válidos', async () => {
     const { sut } = makeSut()
 
     const httpRequest = {
@@ -253,7 +255,7 @@ describe('SignUp Controller', () => {
       }
     }
 
-    const htttpResponse = sut.handle(httpRequest)
+    const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(200)
     // tobe compara os valores dos objetos em si
