@@ -1,0 +1,29 @@
+
+
+--OS COMANDO USADOS JÁ ESTÃO DISPONÍVEL, POR PADRÃO NO JEST
+
+**FAZ O SCRIPT HERDAR TUDO QUE O SCRIPT CITADO TEM
+ex : "test": "jest --watch", 
+"test:unit": "npm run test -- --watch"
+
+**OCULTA OS TESTE QUE PASSARAM
+    também oculta os consoles.error
+ex: --silent
+
+**OCULTA  ALINHA DO ERRO
+ex: --noStackTrace"
+
+**definiu-se que os arquivos .spec.ts seriam para testes unitários
+e os arquivos .test.ts seriam para os testes de integração
+
+**SEPARANDO A LEITURA DOS ARQUIVOS DE TESTE UNITÁRIO DOS DE INTEGRAÇÃO
+ - Cria-se um arquivo test.unit.config.jest
+ - exporta todas as config do arquivo default e muda-se a props específica 
+ - por sua vez, no package.json, adiciona a flag -c <nome do arquivo>, a flag 
+ indica que, no momento daquele script, olhará para as configs daquele arquivo indicado
+
+**EXECUTA TESTES APENAS NOS ARQUIVO QUE FORAM ALTERADOS
+ex: --findRelatedTests
+
+**EXECUTA TESTES EM PILHA, POR DEFAULT É PARALELO. É ACONSELHÁVEL PARA TESTES DE INTEGRAÇÃO
+ex: --runInBand
