@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1639528865622" clover="3.2.0">
-  <project timestamp="1639528865622" name="All files">
+<coverage generated="1639529016125" clover="3.2.0">
+  <project timestamp="1639529016125" name="All files">
     <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="13" coveredelements="13" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
     <file name="email-validator.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\utils\email-validator\email-validator.ts">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
