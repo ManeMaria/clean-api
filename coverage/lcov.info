@@ -3,7 +3,7 @@ SF:src\apresentation\utils\email-validator\email-validator.ts
 FN:9,isValid
 FNF:1
 FNH:1
-FNDA:2,isValid
+FNDA:3,isValid
 DA:1,1
 DA:2,1
 DA:3,1
@@ -13,8 +13,8 @@ DA:6,1
 DA:7,1
 DA:8,1
 DA:9,1
-DA:10,2
-DA:11,2
+DA:10,3
+DA:11,3
 DA:12,1
 LF:12
 LH:12
