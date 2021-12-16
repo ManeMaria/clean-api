@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch --runInBand",
+    "test:clear": "npm run test --clearCache",
+    "test": "jest --watch --runInBand ",
     "test:unit": "npm run test -- --silent --noStackTrace -c test.unit.config.js",
     "test:integration": "npm run test -- --silent --noStackTrace -c test.integration.config.js",
     "test:verbose": "npm run test --",
