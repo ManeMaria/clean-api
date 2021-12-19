@@ -2,6 +2,8 @@
 import { EmailValidatorAdapter } from './email-validator-adapter'
 import validator from 'validator'
 
+// o mock simula que lib de validação sempre retorne true,
+// pois o teste fora feito antes de baixar a lib
 jest.mock('validator', () => (
   {
     isEmail: (): boolean => true
@@ -13,6 +15,7 @@ const makeSut = (): EmailValidatorAdapter => {
 describe('EmailValidator adapter', () => {
   it('should return true if is not validated', () => {
     const sut = makeSut()
+    // mockar um valor é simular o valor de retorno de uma função
     const isValid = sut.isValid('valid_email@email.com')
     expect(isValid).toBe(true)
   })

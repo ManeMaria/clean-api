@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1639956139527" clover="3.2.0">
-  <project timestamp="1639956139527" name="All files">
-    <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="16" coveredelements="16" complexity="0" loc="14" ncloc="14" packages="1" files="1" classes="1"/>
-    <file name="bcrypt-adapter.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\infra\criptography\bcrypt-adapter.ts">
+<coverage generated="1639956480659" clover="3.2.0">
+  <project timestamp="1639956480659" name="All files">
+    <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3" elements="25" coveredelements="25" complexity="0" loc="22" ncloc="22" packages="2" files="2" classes="2"/>
+    <package name="apresentation.utils.email-validator">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="email-validator-adapter.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\utils\email-validator\email-validator-adapter.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.criptography">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <line num="1" count="1" type="stmt"/>
-      <line num="2" count="1" type="stmt"/>
-      <line num="3" count="1" type="stmt"/>
-      <line num="4" count="1" type="stmt"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="stmt"/>
-      <line num="7" count="2" type="stmt"/>
-      <line num="8" count="2" type="stmt"/>
-      <line num="9" count="1" type="stmt"/>
-      <line num="10" count="1" type="stmt"/>
-      <line num="11" count="4" type="stmt"/>
-      <line num="12" count="4" type="stmt"/>
-      <line num="13" count="4" type="stmt"/>
-      <line num="14" count="1" type="stmt"/>
-    </file>
+      <file name="bcrypt-adapter.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\infra\criptography\bcrypt-adapter.ts">
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

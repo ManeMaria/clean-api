@@ -15,7 +15,9 @@ describe('Bcrypt adapter', () => {
     await sut.encrypter('any_value')
     expect(hashSpy).toHaveBeenCalledWith('any_value', salt)
   })
-
+  // mockar um valor é simular o valor de retorno de uma função
+  // o método hash foi simulado com uma valor qualquer, pois o que interessa é se ele retorna um valor,
+  // em caso de sucesso, não como ele encripta um valor
   it('deve retornar a hash em caso de sucesso', async () => {
     const salt = 12
     const sut = new BcryptAdapter(salt)
