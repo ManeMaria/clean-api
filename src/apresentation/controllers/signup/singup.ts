@@ -45,7 +45,7 @@ export class SignUpController implements p.Controller {
 
       return sucess(account)
     } catch (error) {
-      console.log('%c entrou error')
+      console.error(error)
       return serverError()
     }
   }
