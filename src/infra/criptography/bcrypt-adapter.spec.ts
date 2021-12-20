@@ -36,7 +36,6 @@ describe('Bcrypt adapter', () => {
       new Promise((resolve, reject) => reject(new Error()))
     )
     const promise = sut.encrypter('any_value')
-    console.log('promise :>> ', promise)
     await expect(promise).rejects.toThrow()
   })
 })
