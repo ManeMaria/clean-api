@@ -33,7 +33,7 @@ describe('Conta no Mongo repository', () => {
       email: 'any_email@any.com',
       password: 'any_password'
     })
-    // verifica um por um, posi não me interessa saber como será o hash do id
+    // verifica um por um, pois não me interessa saber como será o hash do id
     expect(account).toBeTruthy()
     expect(account.id).toBeTruthy()
     expect(account.name).toBe('any_name')
