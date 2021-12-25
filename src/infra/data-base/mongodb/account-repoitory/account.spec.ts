@@ -5,26 +5,23 @@ import { AccountMongoRepository } from './account'
 import { mongoHelper } from '../helpers/mongo-helper'
 
 const makeSut = (): AccountMongoRepository => {
-  // class AccountMongoRepository implements p.AddAccount {
-  //   async add (account: p.AddAccountModel): Promise<AccountModel> {
-  //     return new Promise((resolve, reject) => resolve({
-  //       id: 'any_id',
-  //       name: 'any_name',
-  //       email: 'any_email@any.com',
-  //       password: 'any_password'
-  //     }))
-  //   }
-  // }
-
   return new AccountMongoRepository()
 }
+
 describe('Conta no Mongo repository', () => {
   beforeAll(async () => {
     await mongoHelper.connect()
   })
+
   afterAll(async () => {
     await mongoHelper.disconnect()
   })
+
+  beforeEach(async () => {
+    const accountColletion = mongoHelper.getColletion('accounts')
+    await accountColletion.deleteMany({})
+  })
+
   test('Deve retornar uma conta em caso de sucesso', async () => {
     const sut = makeSut()
 
