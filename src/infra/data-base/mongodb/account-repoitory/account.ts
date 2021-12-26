@@ -8,10 +8,6 @@ export class AccountMongoRepository implements AddAccountRepository {
   async add (accountData: AddAccountModelData): Promise<AccountModelData> {
     const accountColletion = mongoHelper.getColletion('accounts')
     await accountColletion.insertOne(accountData)
-
-    // @ts-expect-error
-    const { _id, ...accountWithOutId } = accountData
-    const refactorResult = { ...accountWithOutId, id: _id.toString() }
-    return refactorResult
+    return mongoHelper.map(accountData)
   }
 }

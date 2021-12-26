@@ -20,5 +20,12 @@ export const mongoHelper = {
 
   getColletion: function (name: string): Collection {
     return this.client.db().collection(name)
+  },
+
+  map: (colletion: any): any => {
+    const { _id, ...colletionWithOutId } = colletion
+    const refactorResult = { ...colletionWithOutId, id: _id.toString() }
+    return refactorResult
   }
+
 }
