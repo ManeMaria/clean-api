@@ -14,6 +14,7 @@ export const mongoHelper = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.db = await this.client.db(global.__MONGO_DB_NAME__)
   },
+
   disconnect: async function () {
     await this.client.close()
   },
