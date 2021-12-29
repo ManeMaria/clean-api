@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 
+// NÃO É NECESSÁRIO CRIAR TESTES DE INTEGRAÇÃO PARA TODOS OS MIDDLEWARES,
+// PORÉM ESSE É CONSIDERADO ESPECIAL
+
 // cada middleware será criado num arquivo separado para testes de integração
 export const contentType = (req: Request, res: Response, next: NextFunction): void => {
   // definimos por padrão que todas as respostas serão em json,
