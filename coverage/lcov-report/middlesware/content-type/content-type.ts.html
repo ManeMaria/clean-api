@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for middlesware/cors/cors.ts</title>
+    <title>Code coverage report for middlesware/content-type/content-type.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">middlesware/cors</a> cors.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">middlesware/content-type</a> content-type.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -69,10 +69,12 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -84,13 +86,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response, NextFunction } from 'express'
 &nbsp;
 // cada middleware será criado num arquivo separado para testes de integração
-export const cors = (req: Request, res: Response, next: NextFunction): void =&gt; {
-  // para liberar acesso de consumo da api de outros servidores
-  res.set({
-    'access-control-allow-origin': '*',
-    'access-control-allow-headers': '*',
-    'access-control-allow-methods': '*'
-  })
+export const contentType = (req: Request, res: Response, next: NextFunction): void =&gt; {
+  // definimos por padrão que todas as respostas serão em json,
+  // mas se o dev setar um metodo diferente, mudará do padrão
+&nbsp;
+  // o express tem atalhos, um deles é o type, onde têm uma lista
+  // de tipos de conteúdos que enviará.
+  // passando a string 'json', ele identificará que deve retornar json
+  res.type('json')
   next()
 }
 &nbsp;</pre></td></tr></table></pre>
