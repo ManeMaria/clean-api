@@ -17,7 +17,7 @@ describe('contente type middleware', () => {
       // os diversos conteúdos com nome json
   })
 
-  test('Deve retornar xml, qunado forçamos enviar xml', async () => {
+  test('Deve retornar xml, quando forçamos enviar xml', async () => {
     // como temos acesso ao app, podemos simular rotas
     app.get('/text_content_type_xml', (req, res) => {
       res.type('xml')
