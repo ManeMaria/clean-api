@@ -1,7 +1,5 @@
 
-// import * as p from '../../../../domain/usecase/add-account'
 import { AccountMongoRepository } from './account'
-// import { AccountModel } from '../../../../domain/models/account'
 import { mongoHelper } from '../helpers/mongo-helper'
 
 const makeSut = (): AccountMongoRepository => {
@@ -16,7 +14,7 @@ describe('Conta no Mongo repository', () => {
   afterAll(async () => {
     await mongoHelper.disconnect()
   })
-
+  // limpa os dados do db de teste, após cada teste
   beforeEach(async () => {
     const accountColletion = mongoHelper.getColletion('accounts')
     await accountColletion.deleteMany({})
