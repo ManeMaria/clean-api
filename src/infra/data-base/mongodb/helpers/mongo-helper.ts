@@ -4,8 +4,9 @@ export const mongoHelper = {
   // vê se faz diferença
   client: null as MongoClient,
   db: null,
-  connect: async function () {
-    this.client = await MongoClient.connect(global.__MONGO_URI__, {
+  connect: async function (url: string): Promise<void> {
+    const URL = url || global.__MONGO_URI__
+    this.client = await MongoClient.connect(URL, {
       // @ts-expect-error
       useNewUrlParser: true,
       useUnifiedTopology: true
