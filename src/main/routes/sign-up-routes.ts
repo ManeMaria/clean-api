@@ -1,9 +1,10 @@
 import { Router } from 'express'
+import { adaptRouter } from '../adapters/express-router-adapter'
+import { makeSignUpController } from '../factories/signup/signup'
+
 // criamos rotas dinânmicas
 // com esse algorítmo, buscamos os arquivos com final routes.ts e criamos
 // rotas dinâmicas
 export default (route: Router): void => {
-  route.post('/signup', (req, res) => {
-    res.status(201).json({ ok: 'ok' })
-  })
+  route.post('/signup', adaptRouter(makeSignUpController()))
 }

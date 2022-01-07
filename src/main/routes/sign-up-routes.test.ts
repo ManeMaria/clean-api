@@ -22,7 +22,7 @@ describe('SingUp rota', () => {
       .post('/api/signup')
       .send({
         name: 'any_name',
-        email: 'any_email@email@email.com',
+        email: 'any_email@email.com',
         password: 'any-pss',
         passwordConfirmation: 'any-pss'
       })
