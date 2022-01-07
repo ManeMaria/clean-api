@@ -6,8 +6,4 @@ export default (route: Router): void => {
   route.post('/signup', (req, res) => {
     res.status(201).json({ ok: 'ok' })
   })
-
-  route.get('/getsignup', (req, res) => {
-    res.status(200).json({ ok: 'ok' })
-  })
 }

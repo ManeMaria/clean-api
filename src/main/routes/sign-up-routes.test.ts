@@ -28,11 +28,4 @@ describe('SingUp rota', () => {
       })
       .expect(201)
   })
-  test('Deve receber um "ok"', async () => {
-    // como temos acesso ao app, podemos simular rotas
-    await request(app)
-      .get('/api/getsignup')
-      .expect(200)
-      .expect({ ok: 'ok' })
-  })
 })

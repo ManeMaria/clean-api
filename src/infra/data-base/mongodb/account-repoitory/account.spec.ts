@@ -8,7 +8,7 @@ const makeSut = (): AccountMongoRepository => {
 
 describe('Conta no Mongo repository', () => {
   beforeAll(async () => {
-    await mongoHelper.connect()
+    await mongoHelper.connect(process.env.MONGO_URL)
   })
 
   afterAll(async () => {
