@@ -13,7 +13,7 @@ describe('SingUp rota', () => {
   })
   // limpa os dados do db de teste, após cada teste
   beforeEach(async () => {
-    const accountColletion = mongoHelper.getColletion('accounts')
+    const accountColletion = await mongoHelper.getColletion('accounts')
     await accountColletion.deleteMany({})
   })
   test('Deve retornar uma conta nova em caso de sucesso', async () => {

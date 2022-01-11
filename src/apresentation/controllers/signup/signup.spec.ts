@@ -257,7 +257,7 @@ describe('SignUp Controller', () => {
 
     const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
-    expect(htttpResponse.statusCode).toBe(200)
+    expect(htttpResponse.statusCode).toBe(201)
     // tobe compara os valores dos objetos em si
     expect(htttpResponse.body).toEqual({
       id: 'valid_id',
