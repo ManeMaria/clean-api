@@ -2,7 +2,7 @@
 import { Controller, HttpRequest, HttpResponse } from '../../../apresentation/protocols'
 import { LogControllerDecorator } from './log'
 
-const controllerStub = (): Controller => {
+const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       const httpReponse = {
@@ -20,13 +20,13 @@ const controllerStub = (): Controller => {
 
   return new ControllerStub()
 }
-const makeLogControllerDecorator = (controller: Controller): LogControllerDecorator => new LogControllerDecorator(controller)
+const makeSut = (controller: Controller): LogControllerDecorator => new LogControllerDecorator(controller)
 
-describe('LoController Decorator', () => {
+describe('LogController Decorator', () => {
   test('should call controller hander', async () => {
-    const stub = controllerStub()
+    const stub = makeController()
     const handleSpy = jest.spyOn(stub, 'handle')
-    const sut = makeLogControllerDecorator(stub)
+    const sut = makeSut(stub)
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -38,5 +38,29 @@ describe('LoController Decorator', () => {
 
     await sut.handle(httpRequest)
     expect(handleSpy).toHaveBeenCalledWith(httpRequest)
+  })
+
+  test('should return the same result of the controller', async () => {
+    const stub = makeController()
+    const sut = makeSut(stub)
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any-pss',
+        passwordConfirmation: 'any-pss'
+      }
+    })
   })
 })
