@@ -45,8 +45,8 @@ export class SignUpController implements p.Controller {
 
       return sucess(account)
     } catch (error) {
-      console.error(error)
-      return serverError()
+      // console.error(error)
+      return serverError(error)
     }
   }
 }

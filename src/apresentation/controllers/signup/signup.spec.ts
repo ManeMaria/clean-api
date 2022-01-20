@@ -2,6 +2,12 @@ import { SignUpController } from './singup'
 import * as e from '../../erros/erros'
 import * as p from '../signup/signup-protocols'
 
+const makeFakeStack = (): string => {
+  const fakeError = new Error()
+  fakeError.stack = 'any_stack'
+
+  return fakeError.stack
+}
 const makeAddAccount = (): p.AddAccount => {
   class AddAccountStub implements p.AddAccount {
     async add (account: p.AddAccountModel): Promise<p.AccountModel> {
@@ -213,11 +219,12 @@ describe('SignUp Controller', () => {
       }
     }
 
+    const stackError = makeFakeStack()
     const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new e.ServerError())
+    expect(htttpResponse.body).toEqual(new e.ServerError(stackError))
   })
 
   test('Excessão vinda do servidor addAccount', async () => {
@@ -235,12 +242,12 @@ describe('SignUp Controller', () => {
         passwordConfirmation: 'any-pss'
       }
     }
-
+    const stackError = makeFakeStack()
     const htttpResponse = await sut.handle(httpRequest)
     // tobe compara os objetos em si
     expect(htttpResponse.statusCode).toBe(500)
     // tobe compara os valores dos objetos em si
-    expect(htttpResponse.body).toEqual(new e.ServerError())
+    expect(htttpResponse.body).toEqual(new e.ServerError(stackError))
   })
 
   test('Sucesso ao passar dados válidos', async () => {
