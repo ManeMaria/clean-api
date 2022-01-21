@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1642720613847" clover="3.2.0">
-  <project timestamp="1642720613847" name="All files">
-    <metrics statements="104" coveredstatements="87" conditionals="8" coveredconditionals="4" methods="10" coveredmethods="6" elements="122" coveredelements="97" complexity="0" loc="104" ncloc="104" packages="6" files="8" classes="8"/>
-    <package name="apresentation.controllers.signup">
+<coverage generated="1642759971594" clover="3.2.0">
+  <project timestamp="1642759971594" name="All files">
+    <metrics statements="91" coveredstatements="82" conditionals="4" coveredconditionals="3" methods="7" coveredmethods="5" elements="102" coveredelements="90" complexity="0" loc="91" ncloc="91" packages="3" files="4" classes="4"/>
+    <package name="controllers.signup">
       <metrics statements="56" coveredstatements="52" conditionals="1" coveredconditionals="0" methods="3" coveredmethods="2"/>
       <file name="signup-protocols.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\controllers\signup\signup-protocols.ts">
         <metrics statements="4" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -67,8 +67,8 @@
         <line num="52" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="apresentation.erros">
-      <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+    <package name="erros">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="erros.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\erros\erros.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -76,76 +76,42 @@
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
       </file>
-      <file name="server-erros.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\erros\server-erros.ts">
-        <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
-        <line num="7" count="5" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-      </file>
     </package>
-    <package name="apresentation.helpers">
-      <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+    <package name="helpers">
+      <metrics statements="31" coveredstatements="26" conditionals="3" coveredconditionals="3" methods="4" coveredmethods="3"/>
       <file name="http-helpers.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\helpers\http-helpers.ts">
-        <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <metrics statements="31" coveredstatements="26" conditionals="3" coveredconditionals="3" methods="4" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="5" count="6" type="stmt"/>
-        <line num="6" count="6" type="stmt"/>
-        <line num="7" count="6" type="stmt"/>
-        <line num="8" count="6" type="stmt"/>
-        <line num="9" count="6" type="stmt"/>
+        <line num="5" count="12" type="stmt"/>
+        <line num="6" count="12" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
+        <line num="9" count="12" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-      </file>
-    </package>
-    <package name="apresentation.protocols">
-      <metrics statements="3" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="index.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\protocols\index.ts">
-        <metrics statements="3" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="data.protocols">
-      <metrics statements="3" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="log-erro-repository.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\data\protocols\log-erro-repository.ts">
-        <metrics statements="3" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="infra.log-error-repository">
-      <metrics statements="7" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="log-error-repository.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\infra\log-error-repository\log-error-repository.ts">
-        <metrics statements="7" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
       </file>
     </package>
   </project>
