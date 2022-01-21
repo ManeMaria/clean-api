@@ -21,10 +21,10 @@ const makFakeRequest = (): p.HttpRequest => ({
   }
 })
 
-const makeFakeStack = (): string => {
+const makeFakeServerError = (): p.HttpResponse => {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
-  return fakeError.stack
+  return serverError(fakeError)
 }
 
 const makeAddAccount = (): p.AddAccount => {
@@ -191,7 +191,7 @@ describe('SignUp Controller', () => {
 
     const htttpResponse = await sut.handle(makFakeRequest())
 
-    expect(htttpResponse).toEqual(serverError(new e.ServerError(makeFakeStack())))
+    expect(htttpResponse).toEqual(makeFakeServerError())
   })
 
   test('Excessão vinda do servidor addAccount', async () => {
@@ -204,7 +204,7 @@ describe('SignUp Controller', () => {
 
     const htttpResponse = await sut.handle(makFakeRequest())
 
-    expect(htttpResponse).toEqual(serverError(new e.ServerError(makeFakeStack())))
+    expect(htttpResponse).toEqual(makeFakeServerError())
   })
 
   test('Sucesso ao passar dados válidos', async () => {
