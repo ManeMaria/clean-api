@@ -5,6 +5,8 @@ import { LogErrorRepository } from '../../../data/protocols/log-erro-repository'
 import { AccountModel } from '../../../domain/models/account'
 import { LogControllerDecorator } from './log'
 
+// NOTA: após a criação dos testes, o arquivo foi refatorado em sucessivos dias.
+
 const makeFakeServerError = (): HttpResponse => {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
@@ -29,7 +31,7 @@ const makFakeAccount = (): AccountModel => ({
 
 const makeLogErrorRepositoryStube = (): LogErrorRepository => {
   class LogErrorRepositoryStube implements LogErrorRepository {
-    async log (stack: string): Promise<void> {
+    async logError (stack: string): Promise<void> {
       return new Promise((resolve) => resolve())
     }
   }
@@ -81,7 +83,7 @@ describe('LogController Decorator', () => {
 
   test('should call LogErrorRepository with correct if controller returns a server error', async () => {
     const { sut, logErrorRepositoryStube, controllerStub } = makeSut()
-    const logSpy = jest.spyOn(logErrorRepositoryStube, 'log')
+    const logSpy = jest.spyOn(logErrorRepositoryStube, 'logError')
     jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeServerError())))
 
     await sut.handle(makFakeRequest())

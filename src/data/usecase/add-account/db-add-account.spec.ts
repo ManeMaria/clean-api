@@ -1,6 +1,8 @@
 import { DbAddAccount } from './db-add-account'
 import * as p from './db-add-account-protocols'
 
+// NOTA: após a criação dos testes, o arquivo foi refatorado em sucessivos dias.
+
 const makFakeAccountData = (): p.AddAccountModel => ({
   name: 'valid_name',
   email: 'valid_email@valid.com',
