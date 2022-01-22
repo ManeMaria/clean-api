@@ -1,7 +1,22 @@
+PARA ABRIR AS CONFIGS DO USUSÁRIO GIT
+    git config --global --edit
 
-%h = hash reduzida, 
-%d = mostra branch e tag, 
-%s = mensagem
-%cn = exibe o autor
-%cr = data relativa
-%C() = adiciona cor a letra
+
+    %h = hash reduzida, 
+    %d = mostra branch e tag, 
+    %s = mensagem
+    %cn = exibe o autor
+    %cr = data relativa
+    %C() = adiciona cor a letra
+
+--criando tags--
+    git tag - cria uma anotação da versão do software
+    git tag -a para produção
+
+--hora do push--
+    git push --follow-tags = envia apenas as tags anoteded (-a)
+
+    posso abri  git config --global --edit e abilitar o followTags auto
+    LEMBRANDO QUE SEMPRE TEMOS QUE CRIAR A TAG ANTES DE DÁ O PUSH
+    [push]
+    followTags = true
