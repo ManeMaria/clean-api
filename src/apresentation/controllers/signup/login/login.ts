@@ -5,6 +5,13 @@ import { Controller, HttpRequest, HttpResponse } from '../signup-protocols'
 
 export class LoginController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    return new Promise((resolve, reject) => resolve(badRequest(new MissingParamsError('email'))))
+    const { body } = httpRequest
+    const labelRequest = ['email', 'password']
+
+    for (const label of labelRequest) {
+      if (!body[label]) {
+        return new Promise((resolve) => resolve(badRequest(new MissingParamsError(label))))
+      }
+    }
   }
 }
