@@ -20,3 +20,9 @@ PARA ABRIR AS CONFIGS DO USUSÁRIO GIT
     LEMBRANDO QUE SEMPRE TEMOS QUE CRIAR A TAG ANTES DE DÁ O PUSH
     [push]
     followTags = true
+
+--criando branch--
+    git checkout -b <nome da branch>
+
+    - enviando
+        git push origin <nome da branch>
