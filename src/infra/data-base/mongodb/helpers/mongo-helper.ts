@@ -7,6 +7,7 @@ export const mongoHelper = {
   url: null as string,
   connect: async function (url: string): Promise<void> {
     const URL = url || global.__MONGO_URI__
+
     this.url = URL
     this.client = await MongoClient.connect(URL, {
       // @ts-expect-error
