@@ -1,0 +1,10 @@
+ENTENDENDO A ARQUITETURA LIMPA, BASEADA NOS S.O.L.I.D
+
+    - Domain onde ficará as regras de negócio
+        * baseado nos principios do solid, o domais nada mais é do que 
+            interfaces (contratos) informando o que precisa.
+        * usecase é todas as regras de negócio baseada no usuário
+        * models é o formato dos dados que irá para o bd
+
+    - Infra é onde conterá os arquivos que fazem comunicação externa com
+        a api, porém não tem a ver com o usuário
