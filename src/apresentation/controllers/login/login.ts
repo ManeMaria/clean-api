@@ -18,7 +18,7 @@ export class LoginController implements Controller {
 
       for (const label of labelRequest) {
         if (!body[label]) {
-          return new Promise((resolve) => resolve(badRequest(new MissingParamsError(label))))
+          return badRequest(new MissingParamsError(label))
         }
       }
 
@@ -26,7 +26,7 @@ export class LoginController implements Controller {
 
       const { isValid } = this.emailValidator
       if (!isValid(email)) {
-        return new Promise((resolve) => resolve(badRequest(new InvalidParamError('email inválido'))))
+        return badRequest(new InvalidParamError('email inválido'))
       }
 
       const { auth } = this.authentication
