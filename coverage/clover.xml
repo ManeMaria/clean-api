@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1642898617224" clover="3.2.0">
-  <project timestamp="1642898617224" name="All files">
-    <metrics statements="84" coveredstatements="65" conditionals="1" coveredconditionals="0" methods="10" coveredmethods="6" elements="95" coveredelements="71" complexity="0" loc="84" ncloc="84" packages="4" files="5" classes="5"/>
+<coverage generated="1642971069450" clover="3.2.0">
+  <project timestamp="1642971069450" name="All files">
+    <metrics statements="88" coveredstatements="74" conditionals="1" coveredconditionals="0" methods="10" coveredmethods="7" elements="99" coveredelements="81" complexity="0" loc="88" ncloc="88" packages="4" files="5" classes="5"/>
     <package name="controllers.login">
-      <metrics statements="29" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <metrics statements="33" coveredstatements="33" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="login.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\controllers\login\login.ts">
-        <metrics statements="29" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="33" coveredstatements="33" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -34,7 +34,11 @@
         <line num="26" count="4" type="stmt"/>
         <line num="27" count="4" type="stmt"/>
         <line num="28" count="4" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
       </file>
     </package>
     <package name="controllers.signup">
@@ -77,9 +81,9 @@
       </file>
     </package>
     <package name="helpers">
-      <metrics statements="31" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <metrics statements="31" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
       <file name="http-helpers.ts" path="C:\Users\César\Desktop\curso_node_atualizado\src\apresentation\helpers\http-helpers.ts">
-        <metrics statements="31" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <metrics statements="31" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -91,11 +95,11 @@
         <line num="9" count="6" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
