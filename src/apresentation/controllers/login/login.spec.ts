@@ -124,4 +124,12 @@ describe('Login Controller', () => {
 
     expect(httpResponse).toEqual(p.serverError(makFakeServerError()))
   })
+
+  test('Authentication deve retornar 200, caso as credenciais não sejam aprovadas', async () => {
+    const { sut } = makeSut()
+
+    const httpResponse = await sut.handle(makFakeRequest())
+
+    expect(httpResponse).toEqual(p.ok({ accessToken: 'any_token' }))
+  })
 })

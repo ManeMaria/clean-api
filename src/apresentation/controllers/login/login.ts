@@ -26,10 +26,12 @@ export class LoginController implements p.Controller {
       }
 
       const { auth } = this.authentication
-      const isAuth = await auth(email, password)
-      if (!isAuth) {
+      const accessToken = await auth(email, password)
+      if (!accessToken) {
         return p.unauthorizedError()
       }
+
+      return p.ok({ accessToken })
     } catch (error) {
       return p.serverError(error)
     }
