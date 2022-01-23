@@ -1,9 +1,5 @@
+import * as p from './login-protocols'
 
-import { Authentication } from '../../../domain/usecase/authetication'
-import { InvalidParamError } from '../../erros/invalid-params-error'
-import { MissingParamsError } from '../../erros/missing-params-erros'
-import { badRequest, serverError, unauthorizedError } from '../../helpers/http-helpers'
-import { EmailValidator, HttpRequest } from '../signup/signup-protocols'
 import { LoginController } from './login'
 
 const makFakeServerError = (): Error => {
@@ -11,15 +7,15 @@ const makFakeServerError = (): Error => {
   return newError
 }
 
-const makFakeRequest = (): HttpRequest => ({
+const makFakeRequest = (): p.HttpRequest => ({
   body: {
     email: 'any_email@email.com',
     password: 'any_password'
   }
 })
 
-const makeEmailAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
+const makeEmailAuthentication = (): p.Authentication => {
+  class AuthenticationStub implements p.Authentication {
     async auth (email: string, password: string): Promise<string> {
       return new Promise(resolve => resolve('any_token'))
     }
@@ -28,8 +24,8 @@ const makeEmailAuthentication = (): Authentication => {
   return new AuthenticationStub()
 }
 
-const makeEmailValidator = (): EmailValidator => {
-  class EmailValidatorStub implements EmailValidator {
+const makeEmailValidator = (): p.EmailValidator => {
+  class EmailValidatorStub implements p.EmailValidator {
     isValid (email: string): boolean {
       return true
     }
@@ -40,8 +36,8 @@ const makeEmailValidator = (): EmailValidator => {
 
 interface SutTypes {
   sut: LoginController
-  emailValidatorStub: EmailValidator
-  authenticationStub: Authentication
+  emailValidatorStub: p.EmailValidator
+  authenticationStub: p.Authentication
 }
 
 const makeSut = (): SutTypes => {
@@ -66,7 +62,7 @@ describe('Login Controller', () => {
     }
 
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(badRequest(new MissingParamsError('email')))
+    expect(httpResponse).toEqual(p.badRequest(new p.MissingParamsError('email')))
   })
 
   test('Deve retornar 400 se o password não for aprovado ', async () => {
@@ -78,7 +74,7 @@ describe('Login Controller', () => {
     }
 
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(badRequest(new MissingParamsError('password')))
+    expect(httpResponse).toEqual(p.badRequest(new p.MissingParamsError('password')))
   })
 
   test('Deve retornar 400 se caso o email seja inválido', async () => {
@@ -86,7 +82,7 @@ describe('Login Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
 
     const httpResponse = await sut.handle(makFakeRequest())
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('email inválido')))
+    expect(httpResponse).toEqual(p.badRequest(new p.InvalidParamError('email inválido')))
   })
 
   test('Deve retornar 500, caso o EmailValidator encontre uma exceção', async () => {
@@ -97,7 +93,7 @@ describe('Login Controller', () => {
 
     const httpResponse = await sut.handle(makFakeRequest())
 
-    expect(httpResponse).toEqual(serverError(makFakeServerError()))
+    expect(httpResponse).toEqual(p.serverError(makFakeServerError()))
   })
 
   test('Garantindo a chamada do Authentication correta', async () => {
@@ -115,6 +111,17 @@ describe('Login Controller', () => {
 
     const httpResponse = await sut.handle(makFakeRequest())
 
-    expect(httpResponse).toEqual(unauthorizedError())
+    expect(httpResponse).toEqual(p.unauthorizedError())
+  })
+
+  test('Deve retornar 500, caso o Authentication encontre uma exceção', async () => {
+    const { sut, authenticationStub } = makeSut()
+    // ao invés de usar o mockReturnValueOnce que só mudaria o valor de retorno
+    // temos que alterar toda a implemantação, por causa do typescrypt
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => { throw makFakeServerError() })
+
+    const httpResponse = await sut.handle(makFakeRequest())
+
+    expect(httpResponse).toEqual(p.serverError(makFakeServerError()))
   })
 })
