@@ -2,7 +2,7 @@
 import { Authentication } from '../../../domain/usecase/authetication'
 import { InvalidParamError } from '../../erros/invalid-params-error'
 import { MissingParamsError } from '../../erros/missing-params-erros'
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, serverError, unauthorizedError } from '../../helpers/http-helpers'
 import { EmailValidator, HttpRequest } from '../signup/signup-protocols'
 import { LoginController } from './login'
 
@@ -106,5 +106,15 @@ describe('Login Controller', () => {
     await sut.handle(makFakeRequest())
     expect(spyAuth).toHaveBeenCalledWith('any_email@email.com',
       'any_password')
+  })
+
+  test('Deve retornar 401, caso as credenciais não sejam aprovadas', async () => {
+    const { sut, authenticationStub } = makeSut()
+    // no teste, pro causa do método ser async retornamos uma Promise
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve) => resolve(null)))
+
+    const httpResponse = await sut.handle(makFakeRequest())
+
+    expect(httpResponse).toEqual(unauthorizedError())
   })
 })

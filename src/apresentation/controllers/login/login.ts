@@ -2,7 +2,7 @@
 import { Authentication } from '../../../domain/usecase/authetication'
 import { InvalidParamError } from '../../erros/invalid-params-error'
 import { MissingParamsError } from '../../erros/missing-params-erros'
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, serverError, unauthorizedError } from '../../helpers/http-helpers'
 import { Controller, EmailValidator, HttpRequest, HttpResponse } from '../signup/signup-protocols'
 
 export class LoginController implements Controller {
@@ -30,7 +30,10 @@ export class LoginController implements Controller {
       }
 
       const { auth } = this.authentication
-      await auth(email, password)
+      const isAuth = await auth(email, password)
+      if (!isAuth) {
+        return unauthorizedError()
+      }
     } catch (error) {
       return serverError(error)
     }

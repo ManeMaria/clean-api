@@ -2,3 +2,4 @@
 export * from './invalid-params-error'
 export * from './missing-params-erros'
 export * from './server-erros'
+export * from './unauthorized-error'
