@@ -1,4 +1,5 @@
 
+import { Authentication } from '../../../domain/usecase/authetication'
 import { InvalidParamError } from '../../erros/invalid-params-error'
 import { MissingParamsError } from '../../erros/missing-params-erros'
 import { badRequest, serverError } from '../../helpers/http-helpers'
@@ -7,7 +8,6 @@ import { LoginController } from './login'
 
 const makFakeServerError = (): Error => {
   const newError = new Error()
-  // newError.stack = 'any_stack'
   return newError
 }
 
@@ -17,6 +17,16 @@ const makFakeRequest = (): HttpRequest => ({
     password: 'any_password'
   }
 })
+
+const makeEmailAuthentication = (): Authentication => {
+  class AuthenticationStub implements Authentication {
+    async auth (email: string, password: string): Promise<string> {
+      return new Promise(resolve => resolve('any_token'))
+    }
+  }
+
+  return new AuthenticationStub()
+}
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -31,15 +41,18 @@ const makeEmailValidator = (): EmailValidator => {
 interface SutTypes {
   sut: LoginController
   emailValidatorStub: EmailValidator
+  authenticationStub: Authentication
 }
 
 const makeSut = (): SutTypes => {
+  const authenticationStub = makeEmailAuthentication()
   const emailValidatorStub = makeEmailValidator()
-  const sut = new LoginController(emailValidatorStub)
+  const sut = new LoginController(emailValidatorStub, authenticationStub)
 
   return {
     sut,
-    emailValidatorStub
+    emailValidatorStub,
+    authenticationStub
   }
 }
 
@@ -85,5 +98,13 @@ describe('Login Controller', () => {
     const httpResponse = await sut.handle(makFakeRequest())
 
     expect(httpResponse).toEqual(serverError(makFakeServerError()))
+  })
+
+  test('Garantindo a chamada do Authentication correta', async () => {
+    const { sut, authenticationStub } = makeSut()
+    const spyAuth = jest.spyOn(authenticationStub, 'auth')
+    await sut.handle(makFakeRequest())
+    expect(spyAuth).toHaveBeenCalledWith('any_email@email.com',
+      'any_password')
   })
 })
