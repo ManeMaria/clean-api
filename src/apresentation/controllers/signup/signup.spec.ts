@@ -27,6 +27,14 @@ const makeFakeServerError = (): p.HttpResponse => {
   return serverError(fakeError)
 }
 
+const makeValidation = (): p.Validation => {
+  class ValidationStub implements p.Validation {
+    validate (input: any): Error {
+      return null
+    }
+  }
+  return new ValidationStub()
+}
 const makeAddAccount = (): p.AddAccount => {
   class AddAccountStub implements p.AddAccount {
     async add (account: p.AddAccountModel): Promise<p.AccountModel> {
@@ -48,18 +56,21 @@ interface SutTypes {
   sut: SignUpController
   emailValidator: p.EmailValidator
   addAccountStub: p.AddAccount
+  validationStub: p.Validation
 }
 
 const makeSut = (): SutTypes => {
   // test buble, um tipo de moke, um função que retorna um valor certo
   // se criou um moke, pois a intenção do teste é apenas realizar uma função baseado
   // na resposta do validador
+  const validationStub = makeValidation()
   const addAccountStub = makeAddAccount()
   const emailValidator = makeEmailValidator()
   return {
-    sut: new SignUpController(emailValidator, addAccountStub),
+    sut: new SignUpController(emailValidator, addAccountStub, validationStub),
     emailValidator,
-    addAccountStub
+    addAccountStub,
+    validationStub
   }
 }
 
@@ -213,5 +224,16 @@ describe('SignUp Controller', () => {
     const htttpResponse = await sut.handle(makFakeRequest())
     // toEqual compara as props dos objetos em si
     expect(htttpResponse).toEqual(sucess(makFakeAccount()))
+  })
+
+  test('garantindo que o Validation esteja recebendo os corretos', async () => {
+    const { sut, validationStub } = makeSut()
+    // solicita ao jest observar o método isValid
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makFakeRequest()
+    await sut.handle(makFakeRequest())
+
+    // toHaveBeenLastCalledWith verifica o valor passado ao isValid
+    expect(validateSpy).toHaveBeenLastCalledWith(httpRequest.body)
   })
 })

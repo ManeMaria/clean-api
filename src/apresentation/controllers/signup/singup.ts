@@ -6,19 +6,18 @@ import * as e from '../../erros/erros'
 // lembrar de sempre commitar primeiro o arquivo de produção antes
 // do arquivo de teste
 export class SignUpController implements p.Controller {
-  private readonly emailValidator: p.EmailValidator
-  private readonly addAccout: p.AddAccount
-
-  constructor (emailValidator: p.EmailValidator, addAccout: p.AddAccount) {
-    this.emailValidator = emailValidator
-    this.addAccout = addAccout
-  }
+  constructor (
+    readonly emailValidator: p.EmailValidator,
+    readonly addAccout: p.AddAccount,
+    readonly validation: p.Validation
+  ) {}
 
   async handle (httpRequest: p.HttpRequest): Promise< p.HttpResponse> {
     try {
       const { body } = httpRequest
       const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
-
+      const { validate } = this.validation
+      validate(body)
       for (const field of requesFields) {
         if (!body[field]) {
           return badRequest(new e.MissingParamsError(field))
