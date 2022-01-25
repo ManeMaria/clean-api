@@ -1,7 +1,6 @@
 import { SignUpController } from './singup'
 import * as e from '../../erros/erros'
 import * as p from '../signup/signup-protocols'
-import { sucess, badRequest, serverError } from '../../helpers/http-helpers'
 
 // NOTA: após a criação dos testes, o arquivo foi refatorado em sucessivos dias.
 
@@ -24,7 +23,7 @@ const makFakeRequest = (): p.HttpRequest => ({
 const makeFakeServerError = (): p.HttpResponse => {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
-  return serverError(fakeError)
+  return p.serverError(fakeError)
 }
 
 const makeValidation = (): p.Validation => {
@@ -89,7 +88,7 @@ describe('SignUp Controller', () => {
     const htttpResponse = await sut.handle(httpRequest)
 
     // tobe compara os valores das props dos objetos em si
-    expect(htttpResponse).toEqual(badRequest(new e.MissingParamsError('email')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('email')))
   })
 
   test('se não enviar um nome, será retornado erro 400', async () => {
@@ -105,7 +104,7 @@ describe('SignUp Controller', () => {
     }
     const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(badRequest(new e.MissingParamsError('name')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('name')))
   })
 
   test('se não enviar um passwordConfirmation, será retornado erro 400', async () => {
@@ -121,7 +120,7 @@ describe('SignUp Controller', () => {
     }
     const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(badRequest(new e.MissingParamsError('passwordConfirmation')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('passwordConfirmation')))
   })
 
   test('se não enviar um password, será retornado erro 400', async () => {
@@ -137,7 +136,7 @@ describe('SignUp Controller', () => {
     }
     const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(badRequest(new e.MissingParamsError('password')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('password')))
   })
 
   test('retorna um erro 400, se o password e o passWordConfirmation não correponderem', async () => {
@@ -155,7 +154,7 @@ describe('SignUp Controller', () => {
     }
     const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(badRequest(new e.InvalidParamError('passwordConfirmation')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.InvalidParamError('passwordConfirmation')))
   })
 
   test('validadndo email', async () => {
@@ -167,7 +166,7 @@ describe('SignUp Controller', () => {
 
     const htttpResponse = await sut.handle(makFakeRequest())
 
-    expect(htttpResponse).toEqual(badRequest(new e.InvalidParamError('email')))
+    expect(htttpResponse).toEqual(p.badRequest(new e.InvalidParamError('email')))
   })
 
   test('garantindo que o EmailValidator chame o email correto', async () => {
@@ -223,7 +222,7 @@ describe('SignUp Controller', () => {
 
     const htttpResponse = await sut.handle(makFakeRequest())
     // toEqual compara as props dos objetos em si
-    expect(htttpResponse).toEqual(sucess(makFakeAccount()))
+    expect(htttpResponse).toEqual(p.sucess(makFakeAccount()))
   })
 
   test('garantindo que o Validation esteja recebendo os corretos', async () => {
@@ -235,5 +234,13 @@ describe('SignUp Controller', () => {
 
     // toHaveBeenLastCalledWith verifica o valor passado ao isValid
     expect(validateSpy).toHaveBeenLastCalledWith(httpRequest.body)
+  })
+
+  test('DeveRetornar 400 em caso da lavidação não passar', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new e.MissingParamsError('any_field'))
+    const htttpResponse = await sut.handle(makFakeRequest())
+    // não importa a field, só queremos saber que retorne um erro
+    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('any_field')))
   })
 })

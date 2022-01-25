@@ -1,5 +1,4 @@
 
-import { badRequest, serverError, sucess } from '../../helpers/http-helpers'
 import * as p from '../signup/signup-protocols'
 import * as e from '../../erros/erros'
 
@@ -17,23 +16,28 @@ export class SignUpController implements p.Controller {
       const { body } = httpRequest
       const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
       const { validate } = this.validation
-      validate(body)
+      const error = validate(body)
+
+      if (error) {
+        return p.badRequest(new e.MissingParamsError('any_field'))
+      }
+
       for (const field of requesFields) {
         if (!body[field]) {
-          return badRequest(new e.MissingParamsError(field))
+          return p.badRequest(new e.MissingParamsError(field))
         }
       }
 
       const { name, email, password, passwordConfirmation } = body
 
       if (password !== passwordConfirmation) {
-        return badRequest(new e.InvalidParamError('passwordConfirmation'))
+        return p.badRequest(new e.InvalidParamError('passwordConfirmation'))
       }
 
       const isValid = this.emailValidator.isValid(email)
 
       if (!isValid) {
-        return badRequest(new e.InvalidParamError('email'))
+        return p.badRequest(new e.InvalidParamError('email'))
       }
 
       const account = await this.addAccout.add({
@@ -42,10 +46,10 @@ export class SignUpController implements p.Controller {
         password
       })
 
-      return sucess(account)
+      return p.sucess(account)
     } catch (error) {
       // console.error(error)
-      return serverError(error)
+      return p.serverError(error)
     }
   }
 }
