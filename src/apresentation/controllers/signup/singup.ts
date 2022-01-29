@@ -14,19 +14,20 @@ export class SignUpController implements p.Controller {
   async handle (httpRequest: p.HttpRequest): Promise< p.HttpResponse> {
     try {
       const { body } = httpRequest
-      const requesFields = ['email', 'name', 'password', 'passwordConfirmation']
+
       const { validate } = this.validation
+
       const error = validate(body)
 
       if (error) {
-        return p.badRequest(new e.MissingParamsError('any_field'))
+        return p.badRequest(error)
       }
 
-      for (const field of requesFields) {
-        if (!body[field]) {
-          return p.badRequest(new e.MissingParamsError(field))
-        }
-      }
+      // for (const field of requesFields) {
+      //   if (!body[field]) {
+      //     return p.badRequest(new e.MissingParamsError(field))
+      //   }
+      // }
 
       const { name, email, password, passwordConfirmation } = body
 
@@ -48,7 +49,7 @@ export class SignUpController implements p.Controller {
 
       return p.sucess(account)
     } catch (error) {
-      // console.error(error)
+      console.log('-->', error)
       return p.serverError(error)
     }
   }

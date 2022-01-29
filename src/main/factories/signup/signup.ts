@@ -6,6 +6,7 @@ import { BcryptAdapter } from '../../../infra/criptography/bcrypt-adapter'
 import { AccountMongoRepository } from '../../../infra/data-base/mongodb/account-repoitory/account'
 import { LogMongoRepository } from '../../../infra/log-repository/log-repository'
 import { LogControllerDecorator } from '../../decorators/log/log'
+import { makeSignUpValidation } from '../signup-validation/signup-validation'
 
 // MANGUINHO CRIOU OUTRA PASTA E OUTRO ARQUIVO PARA SER O INDEX DAS CLASSES
 
@@ -15,7 +16,7 @@ export const makeSignUpController = (): Controller => {
   const bcryptAdapter = new BcryptAdapter(salt)
   const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository)
   const emailValidatorAdapter = new EmailValidatorAdapter()
-  const signUpController = new SignUpController(emailValidatorAdapter, dbAddAccount)
+  const signUpController = new SignUpController(emailValidatorAdapter, dbAddAccount, makeSignUpValidation())
   const logErrorRepository = new LogMongoRepository()
 
   return new LogControllerDecorator(signUpController, logErrorRepository)

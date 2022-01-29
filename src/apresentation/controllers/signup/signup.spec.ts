@@ -74,70 +74,70 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
-  test('se não enviar um email, será retornado erro 400', async () => {
-    // coloca a classe de sut (sistem unde test) como prefixo para
-    // indicar qual classe estamos testando
-    const { sut } = await makeSut()
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        password: 'any-pss',
-        passwordConfirmation: 'any-pss'
-      }
-    }
-    const htttpResponse = await sut.handle(httpRequest)
+  // test('se não enviar um email, será retornado erro 400', async () => {
+  //   // coloca a classe de sut (sistem unde test) como prefixo para
+  //   // indicar qual classe estamos testando
+  //   const { sut } = await makeSut()
+  //   const httpRequest = {
+  //     body: {
+  //       name: 'any_name',
+  //       password: 'any-pss',
+  //       passwordConfirmation: 'any-pss'
+  //     }
+  //   }
+  //   const htttpResponse = await sut.handle(httpRequest)
 
-    // tobe compara os valores das props dos objetos em si
-    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('email')))
-  })
+  //   // tobe compara os valores das props dos objetos em si
+  //   expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('email')))
+  // })
 
-  test('se não enviar um nome, será retornado erro 400', async () => {
-    // coloca a classe de sut (sistem unde test) como prefixo para
-    // indicar qual classe estamos testando
-    const { sut } = makeSut()
-    const httpRequest = {
-      body: {
-        email: 'any@email@email.com',
-        password: 'any-pss',
-        passwordConfirmation: 'any-pss'
-      }
-    }
-    const htttpResponse = await sut.handle(httpRequest)
+  // test('se não enviar um nome, será retornado erro 400', async () => {
+  //   // coloca a classe de sut (sistem unde test) como prefixo para
+  //   // indicar qual classe estamos testando
+  //   const { sut } = makeSut()
+  //   const httpRequest = {
+  //     body: {
+  //       email: 'any@email@email.com',
+  //       password: 'any-pss',
+  //       passwordConfirmation: 'any-pss'
+  //     }
+  //   }
+  //   const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('name')))
-  })
+  //   expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('name')))
+  // })
 
-  test('se não enviar um passwordConfirmation, será retornado erro 400', async () => {
-    // coloca a classe de sut (sistem unde test) como prefixo para
-    // indicar qual classe estamos testando
-    const { sut } = makeSut()
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any@email@email.com',
-        password: 'any-pss'
-      }
-    }
-    const htttpResponse = await sut.handle(httpRequest)
+  // test('se não enviar um passwordConfirmation, será retornado erro 400', async () => {
+  //   // coloca a classe de sut (sistem unde test) como prefixo para
+  //   // indicar qual classe estamos testando
+  //   const { sut } = makeSut()
+  //   const httpRequest = {
+  //     body: {
+  //       name: 'any_name',
+  //       email: 'any@email@email.com',
+  //       password: 'any-pss'
+  //     }
+  //   }
+  //   const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('passwordConfirmation')))
-  })
+  //   expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('passwordConfirmation')))
+  // })
 
-  test('se não enviar um password, será retornado erro 400', async () => {
-    // coloca a classe de sut (sistem unde test) como prefixo para
-    // indicar qual classe estamos testando
-    const { sut } = makeSut()
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any@email@email.com',
-        passwordConfirmation: 'any-pss'
-      }
-    }
-    const htttpResponse = await sut.handle(httpRequest)
+  // test('se não enviar um password, será retornado erro 400', async () => {
+  //   // coloca a classe de sut (sistem unde test) como prefixo para
+  //   // indicar qual classe estamos testando
+  //   const { sut } = makeSut()
+  //   const httpRequest = {
+  //     body: {
+  //       name: 'any_name',
+  //       email: 'any@email@email.com',
+  //       passwordConfirmation: 'any-pss'
+  //     }
+  //   }
+  //   const htttpResponse = await sut.handle(httpRequest)
 
-    expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('password')))
-  })
+  //   expect(htttpResponse).toEqual(p.badRequest(new e.MissingParamsError('password')))
+  // })
 
   test('retorna um erro 400, se o password e o passWordConfirmation não correponderem', async () => {
     // coloca a classe de sut (sistem unde test) como prefixo para

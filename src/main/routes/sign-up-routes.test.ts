@@ -25,7 +25,6 @@ describe('SingUp rota', () => {
         email: 'any_email@email.com',
         password: 'any-pss',
         passwordConfirmation: 'any-pss'
-      })
-      .expect(201)
+      }).expect(201)
   })
 })
