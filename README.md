@@ -1,5 +1,5 @@
 # API clean 
-![](https://img.shields.io/badge/version-0.1.0-brightgreen)
+![](https://img.shields.io/badge/version-0.1.1-brightgreen)
  
 ## sobre
 Api CRUD baseada nos conceitos de clean code, SOLID e TDD.
