@@ -1,4 +1,3 @@
-// invoco e ativo para ficar tudo em uma linha só
 
 import express from 'express'
 import setupMiddlewares from '../config/middlewares'
